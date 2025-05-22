@@ -59,13 +59,26 @@ const App: React.FC<AppProps> = ({
   };
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
+      <style>
+        {`
+          @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+          
+          .government-serif {
+            font-family: 'Crimson Text', 'Times New Roman', serif;
+          }
+          
+          .government-display {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+          }
+        `}
+      </style>
       {currentPage === "home" ? (
         // HOME PAGE
         <>
           {/* Top header section - Fixed height */}
           <div className="bg-gray-100 border-b-4 border-blue-600 py-6 flex-shrink-0">
             <div className="container mx-auto px-4">
-              <h1 className="text-center text-3xl md:text-4xl font-normal text-gray-800" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
+              <h1 className="text-center text-3xl md:text-4xl font-normal text-gray-800 government-serif">
                 {title}
               </h1>
               {userCount > 0 && (
@@ -81,7 +94,7 @@ const App: React.FC<AppProps> = ({
             {/* Background Washington State Patrol Badge */}
             {showBadge && (
               <div className="absolute inset-0 opacity-15">
-                <div className="absolute -left-44 -bottom-24 w-80 h-80 md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px]">
+                <div className="absolute -left-52 -bottom-32 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
                   <img 
                     src="/photos/waBadge.png" 
                     alt="Washington State Patrol Badge" 
@@ -93,7 +106,7 @@ const App: React.FC<AppProps> = ({
 
             <div className="relative z-10 container mx-auto px-4 py-16 md:py-24 h-full flex items-center justify-center">
               <div className="max-w-4xl mx-auto text-center">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal mb-8 leading-relaxed" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal mb-8 leading-relaxed government-serif">
                   Empowering Authorities to Verify and Validate.
                 </h2>
 
@@ -104,17 +117,17 @@ const App: React.FC<AppProps> = ({
                 </div>
 
                 <div className="space-y-8 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
-                  <p className="font-normal" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
+                  <p className="font-normal government-serif">
                     This website provides a secure platform for verifying the authenticity of Washington State 
                     driver's licenses.
                   </p>
 
-                  <p className="font-normal" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
+                  <p className="font-normal government-serif">
                     It conducts high-precision validation by comparing ID information against 
                     authoritative sources in real time.
                   </p>
 
-                  <p className="font-normal" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
+                  <p className="font-normal government-serif">
                     Preventing identity fraud is critical to public safety and security.
                   </p>
                 </div>
@@ -144,7 +157,7 @@ const App: React.FC<AppProps> = ({
           {/* Top header section - Same as home */}
           <div className="bg-gray-100 border-b-4 border-blue-600 py-6 flex-shrink-0">
             <div className="container mx-auto px-4">
-              <h1 className="text-center text-3xl md:text-4xl font-normal text-gray-800" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
+              <h1 className="text-center text-3xl md:text-4xl font-normal text-gray-800 government-serif">
                 {title}
               </h1>
               {userCount > 0 && (
@@ -160,7 +173,7 @@ const App: React.FC<AppProps> = ({
             {/* Background Washington State Patrol Badge */}
             {showBadge && (
               <div className="absolute inset-0 opacity-15">
-                <div className="absolute -left-44 -bottom-24 w-80 h-80 md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px]">
+                <div className="absolute -left-52 -bottom-32 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
                   <img 
                     src="/photos/waBadge.png" 
                     alt="Washington State Patrol Badge" 
@@ -172,7 +185,7 @@ const App: React.FC<AppProps> = ({
 
             <div className="relative z-10 container mx-auto px-4 py-16 md:py-24 h-full flex items-center justify-center">
               <div className="max-w-4xl mx-auto text-center">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal mb-8 leading-relaxed" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal mb-8 leading-relaxed government-serif">
                   Secure Document Verification Portal
                 </h2>
 
@@ -183,11 +196,11 @@ const App: React.FC<AppProps> = ({
                 </div>
 
                 <div className="space-y-8 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12">
-                  <p className="font-normal" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
+                  <p className="font-normal government-serif">
                     Upload your Washington State driver's license for immediate verification and validation.
                   </p>
 
-                  <p className="font-normal" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
+                  <p className="font-normal government-serif">
                     Our secure system will analyze your document against official state databases.
                   </p>
                 </div>
