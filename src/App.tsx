@@ -9,22 +9,14 @@ const App: React.FC<AppProps> = ({
   title = "Built for data integrity", 
   showBadge = true 
 }) => {
-  // State variables
+  // Only keep essential state variables
   const [currentPage, setCurrentPage] = useState<string>("home");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [userCount, setUserCount] = useState<number>(0);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
 
   const changePage = () => {
-    setIsLoading(true);
-    // Change to fileupload page
-    setTimeout(() => {
-      setCurrentPage("fileupload");
-      setIsLoading(false);
-      setUserCount(userCount + 1);
-      console.log(`Page changed to: fileupload`);
-    }, 1000);
+    setCurrentPage("fileupload");
+    console.log(`Page changed to: fileupload`);
   };
 
   const handleFileUpload = (file: File) => {
@@ -57,6 +49,7 @@ const App: React.FC<AppProps> = ({
       handleFileUpload(files[0]);
     }
   };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
       <style>
@@ -81,11 +74,6 @@ const App: React.FC<AppProps> = ({
               <h1 className="text-center text-3xl md:text-4xl font-normal text-gray-800 government-serif">
                 {title}
               </h1>
-              {userCount > 0 && (
-                <p className="text-center text-sm text-gray-600 mt-2">
-                  Users accessed: {userCount}
-                </p>
-              )}
             </div>
           </div>
 
@@ -94,7 +82,7 @@ const App: React.FC<AppProps> = ({
             {/* Background Washington State Patrol Badge */}
             {showBadge && (
               <div className="absolute inset-0 opacity-15">
-                <div className="absolute -left-52 -bottom-32 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
+                <div className="fixed -left-52 -bottom-32 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
                   <img 
                     src="/photos/waBadge.png" 
                     alt="Washington State Patrol Badge" 
@@ -136,15 +124,10 @@ const App: React.FC<AppProps> = ({
                 <div className="mt-12">
                   <button 
                     onClick={changePage}
-                    disabled={isLoading}
-                    className={`${
-                      isLoading 
-                        ? 'bg-gray-500 cursor-not-allowed' 
-                        : 'bg-blue-600 hover:bg-blue-700'
-                    } text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200`}
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200"
                     style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
                   >
-                    {isLoading ? 'Loading...' : 'Get Started'}
+                    Get Started
                   </button>
                 </div>
               </div>
@@ -160,11 +143,6 @@ const App: React.FC<AppProps> = ({
               <h1 className="text-center text-3xl md:text-4xl font-normal text-gray-800 government-serif">
                 {title}
               </h1>
-              {userCount > 0 && (
-                <p className="text-center text-sm text-gray-600 mt-2">
-                  Users accessed: {userCount}
-                </p>
-              )}
             </div>
           </div>
 
@@ -173,7 +151,7 @@ const App: React.FC<AppProps> = ({
             {/* Background Washington State Patrol Badge */}
             {showBadge && (
               <div className="absolute inset-0 opacity-15">
-                <div className="absolute -left-52 -bottom-32 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
+                <div className="fixed -left-52 -bottom-32 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
                   <img 
                     src="/photos/waBadge.png" 
                     alt="Washington State Patrol Badge" 
