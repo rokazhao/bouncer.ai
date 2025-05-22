@@ -82,7 +82,7 @@ const App: React.FC<AppProps> = ({
             {/* Background Washington State Patrol Badge */}
             {showBadge && (
               <div className="absolute inset-0 opacity-15">
-                <div className="fixed -left-52 -bottom-32 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
+                <div className="fixed -left-52 bottom-0 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
                   <img 
                     src="/photos/waBadge.png" 
                     alt="Washington State Patrol Badge" 
@@ -151,7 +151,7 @@ const App: React.FC<AppProps> = ({
             {/* Background Washington State Patrol Badge */}
             {showBadge && (
               <div className="absolute inset-0 opacity-15">
-                <div className="fixed -left-52 -bottom-32 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
+                <div className="fixed -left-52 bottom-0 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
                   <img 
                     src="/photos/waBadge.png" 
                     alt="Washington State Patrol Badge" 
@@ -241,16 +241,29 @@ const App: React.FC<AppProps> = ({
                   </button>
                   
                   {uploadedFile && (
-                    <button 
-                      onClick={() => {
-                        console.log('Verifying document:', uploadedFile.name);
-                        // Add verification logic here
-                      }}
-                      className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200"
-                      style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
-                    >
-                      Verify Document
-                    </button>
+                    <>
+                      <button 
+                        onClick={() => {
+                          setUploadedFile(null);
+                          console.log('Document cleared');
+                        }}
+                        className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200"
+                        style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
+                      >
+                        Clear
+                      </button>
+                      
+                      <button 
+                        onClick={() => {
+                          console.log('Verifying document:', uploadedFile.name);
+                          // Add verification logic here
+                        }}
+                        className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200"
+                        style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
+                      >
+                        Verify Document
+                      </button>
+                    </>
                   )}
                 </div>
               </div>
