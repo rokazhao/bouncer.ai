@@ -16,7 +16,7 @@ const App: React.FC = () => {
       <div className="bg-slate-800 text-white relative overflow-hidden">
         {/* Background Washington State Patrol Badge */}
         <div className="absolute inset-0 opacity-15">
-          <div className="absolute -left-48 -bottom-32 w-80 h-80 md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px]">
+          <div className="absolute -left-44 -bottom-24 w-80 h-80 md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px]">
             <img 
               src="/photos/waBadge.png" 
               alt="Washington State Patrol Badge" 
