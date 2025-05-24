@@ -114,8 +114,8 @@ const App: React.FC<AppProps> = ({
           <div className="bg-slate-800 text-white relative overflow-hidden flex-grow">
             {/* Background Washington State Patrol Badge */}
             {showBadge && (
-              <div className="absolute inset-0 opacity-15">
-                <div className="fixed -left-52 bottom-0 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
+              <div className="fixed inset-0 opacity-15">
+                <div className="fixed -left-52 -bottom-32 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
                   <img 
                     src="/photos/waBadge.png" 
                     alt="Washington State Patrol Badge" 
@@ -183,8 +183,8 @@ const App: React.FC<AppProps> = ({
           <div className="bg-slate-800 text-white relative overflow-hidden flex-grow">
             {/* Background Washington State Patrol Badge */}
             {showBadge && (
-              <div className="absolute inset-0 opacity-15">
-                <div className="fixed -left-52 bottom-0 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
+              <div className="fixed inset-0 opacity-15">
+                <div className="fixed -left-52 -bottom-32 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
                   <img 
                     src="/photos/waBadge.png" 
                     alt="Washington State Patrol Badge" 
