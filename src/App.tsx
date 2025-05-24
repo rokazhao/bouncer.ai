@@ -12,7 +12,9 @@ const App: React.FC<AppProps> = ({
   // Only keep essential state variables
   const [currentPage, setCurrentPage] = useState<string>("home");
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [uploadedPhoto, setUploadedPhoto] = useState<File | null>(null);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
+  const [isPhotoDragOver, setIsPhotoDragOver] = useState<boolean>(false);
 
   const changePage = () => {
     setCurrentPage("fileupload");
@@ -22,6 +24,11 @@ const App: React.FC<AppProps> = ({
   const handleFileUpload = (file: File) => {
     setUploadedFile(file);
     console.log('File uploaded:', file.name);
+  };
+
+  const handlePhotoUpload = (photo: File) => {
+    setUploadedPhoto(photo);
+    console.log('Photo uploaded:', photo.name);
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -47,6 +54,32 @@ const App: React.FC<AppProps> = ({
     const files = e.target.files;
     if (files && files[0]) {
       handleFileUpload(files[0]);
+    }
+  };
+
+  const handlePhotoDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsPhotoDragOver(false);
+    const files = e.dataTransfer.files;
+    if (files && files[0]) {
+      handlePhotoUpload(files[0]);
+    }
+  };
+
+  const handlePhotoDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsPhotoDragOver(true);
+  };
+
+  const handlePhotoDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsPhotoDragOver(false);
+  };
+
+  const handlePhotoInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files[0]) {
+      handlePhotoUpload(files[0]);
     }
   };
 
@@ -82,7 +115,7 @@ const App: React.FC<AppProps> = ({
             {/* Background Washington State Patrol Badge */}
             {showBadge && (
               <div className="absolute inset-0 opacity-15">
-                <div className="fixed -left-52 -bottom-32 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
+                <div className="fixed -left-52 bottom-0 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
                   <img 
                     src="/photos/waBadge.png" 
                     alt="Washington State Patrol Badge" 
@@ -151,7 +184,7 @@ const App: React.FC<AppProps> = ({
             {/* Background Washington State Patrol Badge */}
             {showBadge && (
               <div className="absolute inset-0 opacity-15">
-                <div className="fixed -left-52 -bottom-32 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
+                <div className="fixed -left-52 bottom-0 w-96 h-96 md:w-[650px] md:h-[650px] lg:w-[750px] lg:h-[750px]">
                   <img 
                     src="/photos/waBadge.png" 
                     alt="Washington State Patrol Badge" 
@@ -211,7 +244,7 @@ const App: React.FC<AppProps> = ({
                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                           </svg>
                         </div>
-                        <p className="text-xl font-semibold text-green-400 mb-2">File Uploaded Successfully</p>
+                        <p className="text-xl font-semibold text-green-400 mb-2">Document Uploaded Successfully</p>
                         <p className="text-gray-300">{uploadedFile.name}</p>
                         <p className="text-sm text-gray-400 mt-2">Size: {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB</p>
                       </div>
@@ -222,9 +255,56 @@ const App: React.FC<AppProps> = ({
                             <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                         </div>
-                        <p className="text-xl font-semibold mb-2">Drop your document here</p>
+                        <p className="text-xl font-semibold mb-2">Drop your driver's license here</p>
                         <p className="text-gray-300 mb-2">or click to browse</p>
                         <p className="text-sm text-gray-400">Supported formats: PDF, JPG, PNG (Max 10MB)</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Photo Upload Box */}
+                <div className="max-w-2xl mx-auto mb-8">
+                  <div 
+                    className={`border-2 border-dashed rounded-lg p-12 transition-all duration-200 cursor-pointer ${
+                      isPhotoDragOver 
+                        ? 'border-blue-400 bg-blue-400 bg-opacity-10' 
+                        : 'border-gray-400 hover:border-blue-400 hover:bg-blue-400 hover:bg-opacity-5'
+                    }`}
+                    onDrop={handlePhotoDrop}
+                    onDragOver={handlePhotoDragOver}
+                    onDragLeave={handlePhotoDragLeave}
+                    onClick={() => document.getElementById('photoInput')?.click()}
+                  >
+                    <input
+                      id="photoInput"
+                      type="file"
+                      accept=".jpg,.jpeg,.png"
+                      onChange={handlePhotoInput}
+                      className="hidden"
+                    />
+                    
+                    {uploadedPhoto ? (
+                      <div className="text-center">
+                        <div className="text-blue-400 mb-4">
+                          <svg className="mx-auto h-16 w-16" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <p className="text-xl font-semibold text-blue-400 mb-2">Photo Uploaded Successfully</p>
+                        <p className="text-gray-300">{uploadedPhoto.name}</p>
+                        <p className="text-sm text-gray-400 mt-2">Size: {(uploadedPhoto.size / 1024 / 1024).toFixed(2)} MB</p>
+                      </div>
+                    ) : (
+                      <div className="text-center">
+                        <div className="text-gray-300 mb-4">
+                          <svg className="mx-auto h-16 w-16" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <p className="text-xl font-semibold mb-2">Upload your photo for comparison</p>
+                        <p className="text-gray-300 mb-2">or click to browse</p>
+                        <p className="text-sm text-gray-400">Supported formats: JPG, PNG (Max 10MB)</p>
                       </div>
                     )}
                   </div>
@@ -240,30 +320,32 @@ const App: React.FC<AppProps> = ({
                     Back to Home
                   </button>
                   
-                  {uploadedFile && (
-                    <>
-                      <button 
-                        onClick={() => {
-                          setUploadedFile(null);
-                          console.log('Document cleared');
-                        }}
-                        className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200"
-                        style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
-                      >
-                        Clear
-                      </button>
-                      
-                      <button 
-                        onClick={() => {
-                          console.log('Verifying document:', uploadedFile.name);
-                          // Add verification logic here
-                        }}
-                        className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200"
-                        style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
-                      >
-                        Verify Document
-                      </button>
-                    </>
+                  {(uploadedFile || uploadedPhoto) && (
+                    <button 
+                      onClick={() => {
+                        setUploadedFile(null);
+                        setUploadedPhoto(null);
+                        console.log('All documents cleared');
+                      }}
+                      className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200"
+                      style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
+                    >
+                      Clear All
+                    </button>
+                  )}
+                  
+                  {uploadedFile && uploadedPhoto && (
+                    <button 
+                      onClick={() => {
+                        console.log('Verifying document:', uploadedFile.name);
+                        console.log('Comparing with photo:', uploadedPhoto.name);
+                        // Add verification logic here
+                      }}
+                      className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200"
+                      style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
+                    >
+                      Verify & Compare
+                    </button>
                   )}
                 </div>
               </div>
