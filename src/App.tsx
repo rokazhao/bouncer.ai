@@ -1,4 +1,6 @@
+import { upload } from '@testing-library/user-event/dist/upload';
 import React, { useState } from 'react';
+import IDAnalysisResult from './IDAnalysisResult';
 
 interface AppProps {
   title?: string;
@@ -15,6 +17,7 @@ const App: React.FC<AppProps> = ({
   const [uploadedPhoto, setUploadedPhoto] = useState<File | null>(null);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
   const [isPhotoDragOver, setIsPhotoDragOver] = useState<boolean>(false);
+  const [analysisResult, setAnalysisResult] = useState<any>(null);
 
   const changePage = () => {
     setCurrentPage("fileupload");
@@ -336,10 +339,32 @@ const App: React.FC<AppProps> = ({
                   
                   {uploadedFile && uploadedPhoto && (
                     <button 
-                      onClick={() => {
+                      onClick={async () => {
                         console.log('Verifying document:', uploadedFile.name);
                         console.log('Comparing with photo:', uploadedPhoto.name);
-                        // Add verification logic here
+                        
+                        // Create FormData to send files
+                        const formData = new FormData();
+                        formData.append('document', uploadedFile);
+                        formData.append('face', uploadedPhoto);
+
+                        try {
+                          const response = await fetch('http://localhost:8000/scan', {
+                            method: 'POST',
+                            body: formData
+                          });
+
+                          if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                          }
+
+                          const result = await response.json();
+                          console.log('API Response:', result);
+                          setAnalysisResult(result);
+                          setCurrentPage("results");
+                        } catch (error) {
+                          console.error('Error during verification:', error);
+                        }
                       }}
                       className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200"
                       style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
@@ -352,6 +377,13 @@ const App: React.FC<AppProps> = ({
             </div>
           </div>
         </>
+      )}
+
+      {currentPage === "results" && analysisResult && (
+        <IDAnalysisResult 
+          result={analysisResult} 
+          onBack={() => setCurrentPage("fileupload")} 
+        />
       )}
     </div>
   );
