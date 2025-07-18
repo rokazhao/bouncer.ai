@@ -1,3 +1,9 @@
+# Note
+Some issues with backend code currently, working functionality shown in demo below.
+
+# Demo Video
+(https://www.youtube.com/watch?v=TiqnAA31XEE)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
